@@ -1,0 +1,39 @@
+{{define "title"}}
+Tambah Task
+{{end}}
+
+{{define "main"}}
+<div class="card box-shadow">
+    <div class="card-header">Tambah Task</div>
+    <div class="card-body">
+        <form action="/create" method="post">
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label class="form-label">Task</label>
+                        <input type="text" class="form-control" name="task">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" name="decription" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label class="form-label">Assignee</label>
+                        <input type="text" class="form-control" name="assignee">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Deadline</label>
+                        <input type="date" class="form-control" name="deadline">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <a href="/" class="btn btn-secondary">Back</a>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{{end}}

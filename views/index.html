@@ -1,0 +1,39 @@
+{{define "title"}}
+Daftar Task
+{{end}}
+
+{{define "main"}}
+<div class="row">
+    <div class="col-12">
+        <a href="/create" class="btn btn-primary mb-2">Tambah Task</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Task</th>
+                    <th>Assignee</th>
+                    <th>Deadline</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range $index, $task := .Tasks}}
+                <tr>
+                    <th scope="row">{{$index+1}}</th>
+                    <td>{{$task.ID}}</td>
+                    <td>{{$task.Task}}</td>
+                    <td>{{$task.Assignee}}</td>
+                    <td>{{$task.Deadline}}</td>
+                    <td>
+                        <a href="/update/{{$task.ID}}" class="btn btn-success">Ubah</a> | 
+                        <a href="/show/{{$task.ID}}" class="btn btn-info">Lihat</a> | 
+                        <a href="/delete/{{$task.ID}}" class="btn btn-danger">Hapus</a>
+                    </td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </div>
+</div>
+{{end}}
