@@ -4,9 +4,9 @@ Tambah Task
 
 {{define "main"}}
 <div class="card box-shadow">
-    <div class="card-header">Tambah Task</div>
-    <div class="card-body">
-        <form action="/create" method="post">
+    <form action="/create" method="post">
+        <div class="card-header">Tambah Task</div>
+        <div class="card-body">
             <div class="row">
                 <div class="col-6">
                     <div class="mb-3">
@@ -29,11 +29,11 @@ Tambah Task
                     </div>
                 </div>
             </div>
-            <div>
-                <a href="/" class="btn btn-secondary">Back</a>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </form>
-    </div>
+        </div>
+        <div class="card-footer">
+            <a href="/" class="btn btn-secondary">Back</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
 </div>
 {{end}}

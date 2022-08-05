@@ -25,7 +25,6 @@ func renderTemplateHTML(htmlTmp string, w http.ResponseWriter, data interface{})
 		"views/base.html",
 	}
 	tmpt, err := template.ParseFiles(files...)
-
 	if err != nil {
 		panic("Error Template: " + err.Error())
 	}
@@ -62,11 +61,24 @@ func Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	renderTemplateHTML("create", w, nil)
 }
 
+func Show(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	db := sqliteDB()
+	task := Model.Tasks{}
+	err := db.First(&task, params.ByName("id")).Error
+	if err != nil {
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+	}
+
+	datas := map[string]interface{}{
+		"Tasks": task,
+	}
+	renderTemplateHTML("show", w, datas)
+}
+
 func Update(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	db := sqliteDB()
 	task := Model.Tasks{}
 	err := db.First(&task, params.ByName("id")).Error
-
 	if err != nil {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 	}
@@ -90,7 +102,6 @@ func Delete(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	db := sqliteDB()
 	task := Model.Tasks{}
 	err := db.First(&task, params.ByName("id")).Error
-
 	if err != nil {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 	}

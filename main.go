@@ -26,9 +26,10 @@ func main() {
 	router.GET("/", TaskController.Index)
 	router.GET("/create", TaskController.Create)
 	router.POST("/create", TaskController.Create)
+	router.GET("/show/:id", TaskController.Show)
 	router.GET("/update/:id", TaskController.Update)
 	router.POST("/update/:id", TaskController.Update)
-	router.POST("/delete/:id", TaskController.Delete)
+	router.GET("/delete/:id", TaskController.Delete)
 
 	fmt.Println("http://localhost:8080")
 	http.ListenAndServe(":8080", router)

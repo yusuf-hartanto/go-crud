@@ -20,7 +20,7 @@ Daftar Task
             <tbody>
                 {{range $index, $task := .Tasks}}
                 <tr>
-                    <th scope="row">{{$index+1}}</th>
+                    <th scope="row">{{$index}}</th>
                     <td>{{$task.ID}}</td>
                     <td>{{$task.Task}}</td>
                     <td>{{$task.Assignee}}</td>
