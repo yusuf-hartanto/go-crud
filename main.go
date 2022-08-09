@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 	TaskController "project/controllers"
 
 	Model "project/models"
@@ -31,6 +32,10 @@ func main() {
 	router.POST("/update/:id", TaskController.Update)
 	router.GET("/delete/:id", TaskController.Delete)
 
-	fmt.Println("http://localhost:8080")
-	http.ListenAndServe(":8080", router)
+	port := os.Getenv(("PORT"))
+	if port == "" {
+		port = "8080"
+	}
+	fmt.Println("http://localhost:" + port)
+	http.ListenAndServe(":"+port, router)
 }
