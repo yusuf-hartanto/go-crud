@@ -1,3 +1,9 @@
 /tmp
 *.db
 *.exe
+
+# exclude everything
+/assets/images/*
+
+# exception to the rule
+!/assets/images.gitkeep 

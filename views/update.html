@@ -4,7 +4,7 @@ Ubah Task
 
 {{define "main"}}
 <div class="card box-shadow">
-    <form action="/update" method="post">
+    <form action="/update/{{.Tasks.ID}}" method="post" enctype="multipart/form-data">
         <div class="card-header">Ubah Task</div>
         <div class="card-body">
             <div class="row">
@@ -20,12 +20,19 @@ Ubah Task
                 </div>
                 <div class="col-6">
                     <div class="mb-3">
+                        <label class="form-label">Deadline</label>
+                        <input type="date" class="form-control" name="deadline" value="{{.Tasks.Deadline}}">
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">Assignee</label>
                         <input type="text" class="form-control" name="assignee" value="{{.Tasks.Assignee}}">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Deadline</label>
-                        <input type="date" class="form-control" name="deadline" value="{{.Tasks.Deadline}}">
+                        <label class="form-label">Profile Image</label>
+                        <div>
+                            <img src="../{{.Tasks.ProfileImage}}" alt="img" class="img-thumbnail mb-2" width="100px" onError="this.onerror=null;this.src='../static/default.png';">
+                            <input type="file" class="form-control" name="profile_image">
+                        </div>
                     </div>
                 </div>
             </div>

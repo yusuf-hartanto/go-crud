@@ -12,8 +12,9 @@ Daftar Task
                     <th>#</th>
                     <th>ID</th>
                     <th>Task</th>
-                    <th>Assignee</th>
                     <th>Deadline</th>
+                    <th>Assignee</th>
+                    <th>Profile Image</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -23,8 +24,11 @@ Daftar Task
                     <th scope="row">{{$index}}</th>
                     <td>{{$task.ID}}</td>
                     <td>{{$task.Task}}</td>
-                    <td>{{$task.Assignee}}</td>
                     <td>{{$task.Deadline}}</td>
+                    <td>{{$task.Assignee}}</td>
+                    <td>
+                        <img src="{{$task.ProfileImage}}" alt="img" class="img-thumbnail" width="75px" onError="this.onerror=null;this.src='../static/default.png';">
+                    </td>
                     <td>
                         <a href="/update/{{$task.ID}}" class="btn btn-success">Ubah</a> | 
                         <a href="/show/{{$task.ID}}" class="btn btn-info">Lihat</a> | 

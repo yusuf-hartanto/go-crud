@@ -2,7 +2,9 @@ package TaskController
 
 import (
 	"html/template"
+	"io/ioutil"
 	"net/http"
+	"strings"
 
 	Model "project/models"
 
@@ -35,6 +37,34 @@ func renderTemplateHTML(htmlTmp string, w http.ResponseWriter, data interface{})
 	}
 }
 
+func uploadFile(w http.ResponseWriter, r *http.Request) string {
+	file, _, err := r.FormFile("profile_image")
+	if file == nil {
+		return ""
+	}
+
+	if err != nil {
+		panic("Error FormFile: " + err.Error())
+	}
+	defer file.Close()
+
+	tmpFile, errTmp := ioutil.TempFile("assets/images", "cover-*.png")
+	if errTmp != nil {
+		panic("Error TmpFile: " + err.Error())
+	}
+	defer tmpFile.Close()
+
+	fileBytes, errFB := ioutil.ReadAll(file)
+	if errFB != nil {
+		panic("Error ReadAll: " + errFB.Error())
+	}
+
+	tmpFile.Write(fileBytes)
+	var fileName = strings.Replace(tmpFile.Name(), "assets", "static", -1)
+	fileName = strings.Replace(fileName, "\\", "/", -1)
+	return fileName
+}
+
 func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	db := sqliteDB()
 	var tasks []Model.Tasks
@@ -48,11 +78,13 @@ func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 func Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	db := sqliteDB()
 	if r.Method == "POST" {
+		filename := uploadFile(w, r)
 		task := Model.Tasks{
-			Task:        r.FormValue("task"),
-			Assignee:    r.FormValue("assignee"),
-			Deadline:    r.FormValue("deadline"),
-			Description: r.FormValue("decription"),
+			Task:         r.FormValue("task"),
+			Assignee:     r.FormValue("assignee"),
+			Deadline:     r.FormValue("deadline"),
+			Description:  r.FormValue("decription"),
+			ProfileImage: filename,
 		}
 		db.Create(&task)
 
@@ -84,6 +116,10 @@ func Update(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	}
 
 	if r.Method == "POST" {
+		filename := uploadFile(w, r)
+		if filename != "" {
+			task.ProfileImage = filename
+		}
 		task.Task = r.FormValue("task")
 		task.Assignee = r.FormValue("assignee")
 		task.Deadline = r.FormValue("deadline")

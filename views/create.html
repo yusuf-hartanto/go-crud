@@ -4,7 +4,7 @@ Tambah Task
 
 {{define "main"}}
 <div class="card box-shadow">
-    <form action="/create" method="post">
+    <form action="/create" method="post" enctype="multipart/form-data">
         <div class="card-header">Tambah Task</div>
         <div class="card-body">
             <div class="row">
@@ -20,12 +20,16 @@ Tambah Task
                 </div>
                 <div class="col-6">
                     <div class="mb-3">
+                        <label class="form-label">Deadline</label>
+                        <input type="date" class="form-control" name="deadline">
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">Assignee</label>
                         <input type="text" class="form-control" name="assignee">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Deadline</label>
-                        <input type="date" class="form-control" name="deadline">
+                        <label class="form-label">Profile Image</label>
+                        <input type="file" class="form-control" name="profile_image">
                     </div>
                 </div>
             </div>
